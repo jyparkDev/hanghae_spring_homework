@@ -7,11 +7,15 @@
 /dataSources/
 /dataSources.local.xml
 
+*/*.iml
+*/.idea/
+*/out/
+
 HELP.md
-*/.gradle
-*/build/
-!*/gradle/wrapper/gradle-wrapper.jar
-!*/**/src/main/**/build/
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
 !**/src/test/**/build/
 
 ### STS ###
@@ -43,10 +47,4 @@ out/
 /.nb-gradle/
 
 ### VS Code ###
-/.vscode/
-
-
-
-*/*.iml
-*/.idea/
-*/out/
+.vscode/
