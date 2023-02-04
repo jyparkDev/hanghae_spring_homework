@@ -1,17 +1,8 @@
-# Default ignored files
-/shelf/
-/workspace.xml
-# Editor-based HTTP Client requests
-/httpRequests/
-# Datasource local storage ignored files
-/dataSources/
-/dataSources.local.xml
-
 HELP.md
-*/.gradle
-*/build/
-!*/gradle/wrapper/gradle-wrapper.jar
-!*/**/src/main/**/build/
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
 !**/src/test/**/build/
 
 ### STS ###
@@ -43,10 +34,4 @@ out/
 /.nb-gradle/
 
 ### VS Code ###
-/.vscode/
-
-
-
-*/*.iml
-*/.idea/
-*/out/
+.vscode/
