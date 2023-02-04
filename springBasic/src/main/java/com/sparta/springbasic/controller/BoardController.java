@@ -24,7 +24,7 @@ public class BoardController {
         return boardService.findBoards();
     }
     /**
-     * 게시글 등록
+     * 게시글 등록 Controller
      * @param requestDto
      * @return 등록 된 게시글
      */
@@ -33,9 +33,20 @@ public class BoardController {
         return new BoardResponseDto(boardService.createBoard(requestDto));
     }
 
+    /**
+     * 선택 게시글 조회 Controller
+     * @param id
+     * @return
+     */
     @GetMapping("/api/board/{id}")
     public BoardResponseDto getBoard(@PathVariable Long id){
         return new BoardResponseDto(boardService.findBoard(id));
+    }
+
+    @PutMapping("/api/board/{id}")
+    public BoardResponseDto updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto){
+        Board board = boardService.updateBoard(id, requestDto);
+        return new BoardResponseDto(board);
     }
 }
 

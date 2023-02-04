@@ -35,6 +35,12 @@ public class Board extends Timestamped{
         this.content = requestDto.getContent();
     }
 
+    public void updateBoard(BoardRequestDto requestDto){
+        this.title = requestDto.getTitle();
+        this.writer = requestDto.getWriter();
+        this.content = requestDto.getContent();
+    }
+
 }
 
 

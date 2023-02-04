@@ -47,11 +47,30 @@ public class BoardService {
         return responseDtos;
     }
 
+    /**
+     * 선택 게시글 조회 기능
+     * @param id
+     * @return
+     */
+    @Transactional
     public Board findBoard(Long id) {
         return boardRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 번호 게시글이 없습니다.")
         );
     }
+
+    @Transactional
+    public Board updateBoard(Long id,BoardRequestDto requestDto){
+        Board board = boardRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("해당 게시글이 없습니다.")
+        );
+        if (!board.getPasswd().equals(requestDto.getPasswd())){
+            throw new IllegalArgumentException("패스워드가 일치하지 않습니다.");
+        }
+        board.updateBoard(requestDto);
+        return board;
+    }
 }
+
 
 
