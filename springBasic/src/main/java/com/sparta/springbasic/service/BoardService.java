@@ -1,28 +1,49 @@
 package com.sparta.springbasic.service;
 
 import com.sparta.springbasic.dto.BoardRequestDto;
+import com.sparta.springbasic.dto.BoardResponseDto;
 import com.sparta.springbasic.entity.Board;
 import com.sparta.springbasic.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class BoardService {
-
     private final BoardRepository boardRepository;
+
 
 
     /**
      * 게시글 등록 기능
      * @param requestDto
-     * @return Board 객체
+     * @return 등록된 게시물
      */
     @Transactional
     public Board createBoard(BoardRequestDto requestDto) {
         Board board = new Board(requestDto);
         boardRepository.save(board);
         return board;
+    }
+
+    /**
+     * 전체 게시글 조회 기능
+     * @param requestDto
+     * @return 전체 게시글
+     */
+    @Transactional
+    public List<BoardResponseDto> findBoards() {
+        List<Board> boardList = boardRepository.findAllByOrderByCreatedAtDesc();
+        List<BoardResponseDto> responseDtos = new ArrayList<>();
+        for(Board board : boardList){
+            responseDtos.add(new BoardResponseDto(board));
+        }
+        return responseDtos;
     }
 }
