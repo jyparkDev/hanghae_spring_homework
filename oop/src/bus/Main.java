@@ -1,6 +1,6 @@
 package bus;
 
-public class BusMain {
+public class Main {
     public static void main(String[] args) {
         System.out.println("=== 버스 인스턴스 생성 및 버스고유번호 TEST ===");
         Bus bus1 = new Bus();

@@ -7,6 +7,6 @@
 /dataSources/
 /dataSources.local.xml
 
-.idea/
-homework.iml
-out/
+*/*.iml
+*/.idea/
+*/out/
