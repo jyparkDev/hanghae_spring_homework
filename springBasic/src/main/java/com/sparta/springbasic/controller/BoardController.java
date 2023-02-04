@@ -30,8 +30,12 @@ public class BoardController {
      */
     @PostMapping("/api/boards")
     public BoardResponseDto ctreateBoard(@RequestBody BoardRequestDto requestDto){
-        Board board = boardService.createBoard(requestDto);
-        return new BoardResponseDto(board);
+        return new BoardResponseDto(boardService.createBoard(requestDto));
+    }
+
+    @GetMapping("/api/board/{id}")
+    public BoardResponseDto getBoard(@PathVariable Long id){
+        return new BoardResponseDto(boardService.findBoard(id));
     }
 }
 

@@ -9,13 +9,16 @@ import java.time.LocalDateTime;
 
 @Getter
 public class BoardResponseDto {
+    private Long id;
     private String title;
     private String writer;
     private String content;
     private LocalDateTime modifiedAt;
     private LocalDateTime createdAt;
 
+
     public BoardResponseDto(Board board){
+        this.id = board.getId();
         this.title = board.getTitle();
         this.writer = board.getWriter();
         this.content = board.getContent();

@@ -46,4 +46,12 @@ public class BoardService {
         }
         return responseDtos;
     }
+
+    public Board findBoard(Long id) {
+        return boardRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("해당 번호 게시글이 없습니다.")
+        );
+    }
 }
+
+
