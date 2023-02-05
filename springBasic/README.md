@@ -18,3 +18,14 @@
 
 ## ✏ Usecase Diagram
 ![게시글_유스케이스](https://user-images.githubusercontent.com/72076023/216767627-3d466878-4fb9-47a9-b148-771579d1a344.png)
+
+
+## 📜 API Docs
+
+| Method | URL | Request | Response | 기능 |
+| :-------: | :---: | :---| :--- | :----: |
+| GET | /api/boards | | {<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;"id":1,<br>&nbsp;&nbsp;&nbsp;&nbsp;"title":"title",<br>&nbsp;&nbsp;&nbsp;&nbsp;"writer":"writer",<br>&nbsp;&nbsp;&nbsp;&nbsp;"content":"content",<br>&nbsp;&nbsp;&nbsp;&nbsp;"createdAt": "2022-07-25T12:43:01.226062”,<br>&nbsp;&nbsp;&nbsp;&nbsp;"modifiedAt": "2022-07-25T12:43:01.226062”,<br>&nbsp;&nbsp;}&nbsp;,<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;"id":2,<br>&nbsp;&nbsp;&nbsp;&nbsp;"title":"title",<br>&nbsp;&nbsp;&nbsp;&nbsp;"writer":"writer",<br>&nbsp;&nbsp;&nbsp;&nbsp;"content":"content",<br>&nbsp;&nbsp;&nbsp;&nbsp;"createdAt": "2022-07-25T12:43:01.226062”,<br>&nbsp;&nbsp;&nbsp;&nbsp;"modifiedAt": "2022-07-25T12:43:01.226062”,<br>&nbsp;&nbsp;}&nbsp;, ....<br>} | 전체 게시글 조회 
+| GET | /api/board/{id} | {"id"  : 1 } | {<br>&nbsp;&nbsp;"id":1,<br>&nbsp;&nbsp;"title":"title",<br>&nbsp;&nbsp;"writer":"writer",<br>&nbsp;&nbsp;"content":"content",<br>&nbsp;&nbsp;"createdAt": "2022-07-25T12:43:01.226062”,<br>&nbsp;&nbsp;"modifiedAt": "2022-07-25T12:43:01.226062”,<br>}|선택 게시글 조회|
+| POST | /api/boards | {<br>"title":"title",<br>"writer":"writer",<br>"passwd":"passwd",<br>"content":"content"<br>}| {<br>&nbsp;&nbsp;"id":1,<br>&nbsp;&nbsp;"title":"title",<br>&nbsp;&nbsp;"writer":"writer",<br>&nbsp;&nbsp;"content":"content",<br>&nbsp;&nbsp;"createdAt": "2022-07-25T12:43:01.226062”,<br>&nbsp;&nbsp;"modifiedAt": "2022-07-25T12:43:01.226062”,<br>} |게시글 등록|
+| PUT | /api/board/{id} | {<br>"title":"title",<br>"writer":"writer",<br>"passwd":"passwd",<br>"content":"content"<br>}| {<br>&nbsp;&nbsp;"id":1,<br>&nbsp;&nbsp;"title":"modifedtitle",<br>&nbsp;&nbsp;"writer":"modifedwriter",<br>&nbsp;&nbsp;"content":"modifedcontent",<br>&nbsp;&nbsp;"createdAt": "2022-07-25T12:43:01.226062”,<br>&nbsp;&nbsp;"modifiedAt": "2022-07-25T12:43:01.226062”,<br>} |게시글 수정|
+| DELETE | /api/board/{id} | {<br>"id"  : 1,<br>"passwd":"passwd"<br>}| {<br>"msg":<br> "2xx" - 성공<br>"4x4" - 유효하지 않은 id<br>"4x3" - 비밀번호 불일치<br>} |게시글 삭제|
