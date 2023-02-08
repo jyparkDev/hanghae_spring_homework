@@ -1,6 +1,8 @@
 package com.sparta.springbasic.entity;
 
 import com.sparta.springbasic.dto.BoardRequestDto;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +11,9 @@ import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
+@Builder
 public class Board extends Timestamped{
 
     @Id
@@ -28,18 +32,14 @@ public class Board extends Timestamped{
     @Column(nullable = false)
     private String content; // 글 내용
 
-    public Board(BoardRequestDto requestDto){
-        this.title = requestDto.getTitle();
-        this.writer = requestDto.getWriter();
-        this.passwd = requestDto.getPasswd();
-        this.content = requestDto.getContent();
-    }
+
 
     public void updateBoard(BoardRequestDto requestDto){
         this.title = requestDto.getTitle();
         this.writer = requestDto.getWriter();
         this.content = requestDto.getContent();
     }
+
 
 }
 

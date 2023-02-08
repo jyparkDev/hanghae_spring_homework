@@ -9,27 +9,29 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class BoardService {
     private final BoardRepository boardRepository;
-
-
 
     /**
      * 게시글 등록 기능
      * @param requestDto
      * @return 등록된 게시물
      */
-    @Transactional
-    public Board createBoard(BoardRequestDto requestDto) {
-        Board board = new Board(requestDto);
+
+    public BoardResponseDto createBoard(BoardRequestDto requestDto) {
+        Board board = Board.builder()
+                .title(requestDto.getTitle())
+                .writer(requestDto.getWriter())
+                .passwd(requestDto.getPasswd())
+                .content(requestDto.getContent())
+                .build();
         boardRepository.save(board);
-        return board;
+        return new BoardResponseDto(board);
     }
 
     /**
@@ -37,7 +39,7 @@ public class BoardService {
      * @param requestDto
      * @return 전체 게시글
      */
-    @Transactional
+    @Transactional(readOnly = true)
     public List<BoardResponseDto> findBoards() {
         List<Board> boardList = boardRepository.findAllByOrderByCreatedAtDesc();
         List<BoardResponseDto> responseDtos = new ArrayList<>();
@@ -52,13 +54,12 @@ public class BoardService {
      * @param id
      * @return
      */
-    @Transactional
+    @Transactional(readOnly = true)
     public Board findBoard(Long id) {
         return boardRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 번호 게시글이 없습니다.")
         );
     }
-
 
     /**
      * 선택 게시글 수정 기능
@@ -66,7 +67,6 @@ public class BoardService {
      * @param requestDto
      * @return
      */
-    @Transactional
     public Board updateBoard(Long id,BoardRequestDto requestDto){
         Board board = boardRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 게시글이 없습니다.")
@@ -78,7 +78,6 @@ public class BoardService {
         return board;
     }
 
-    @Transactional
     public void removeBoard(Long id,String passwd) throws IllegalArgumentException, IllegalAccessException {
         Board board = boardRepository.findById(id).orElseThrow(
                 ()->new IllegalArgumentException("해당 게시물이 없습니다.")

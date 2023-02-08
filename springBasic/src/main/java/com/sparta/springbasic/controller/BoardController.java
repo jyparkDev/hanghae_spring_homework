@@ -7,6 +7,7 @@ import com.sparta.springbasic.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class BoardController {
      */
     @PostMapping("/api/boards")
     public BoardResponseDto ctreateBoard(@RequestBody BoardRequestDto requestDto){
-        return new BoardResponseDto(boardService.createBoard(requestDto));
+        return boardService.createBoard(requestDto);
     }
 
     /**
@@ -58,15 +59,19 @@ public class BoardController {
     }
 
     @DeleteMapping("/api/board/{id}")
-    public Map<String,String> deleteBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto){
+    public Map<String,String> deleteBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto, HttpServletResponse res){
+        System.out.println(id);
         Map<String,String> result = new HashMap<>();
         try{
             boardService.removeBoard(id,requestDto.getPasswd());
-            result.put("msg","2xx");
+            res.setStatus(HttpServletResponse.SC_OK);
+            result.put("msg","삭제 완료");
         }catch (IllegalArgumentException e){
-            result.put("msg","4x4");
+            res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            result.put("msg","유효하지 않은 번호입니다.");
         }catch (IllegalAccessException e){
-            result.put("msg","4x3");
+            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            result.put("msg","패스워드가 일치하지 않습니다.");
         }
         return result;
     }
