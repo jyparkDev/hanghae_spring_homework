@@ -28,4 +28,20 @@
 | GET | /api/board/{id} | {&nbsp;"id" : 1&nbsp; } | {<br>&nbsp;&nbsp;"id":1,<br>&nbsp;&nbsp;"title":"title",<br>&nbsp;&nbsp;"writer":"writer",<br>&nbsp;&nbsp;"content":"content",<br>&nbsp;&nbsp;"createdAt": "2022-07-25T12:43:01.226062”,<br>&nbsp;&nbsp;"modifiedAt": "2022-07-25T12:43:01.226062”,<br>}|선택 게시글 조회|
 | POST | /api/boards | {<br>&nbsp;&nbsp;"title":"title",<br>&nbsp;&nbsp;"writer":"writer",<br>&nbsp;&nbsp;"passwd":"passwd",<br>&nbsp;&nbsp;"content":"content"<br>}| {<br>&nbsp;&nbsp;"id":1,<br>&nbsp;&nbsp;"title":"title",<br>&nbsp;&nbsp;"writer":"writer",<br>&nbsp;&nbsp;"content":"content",<br>&nbsp;&nbsp;"createdAt": "2022-07-25T12:43:01.226062”,<br>&nbsp;&nbsp;"modifiedAt": "2022-07-25T12:43:01.226062”,<br>} |게시글 등록|
 | PUT | /api/board/{id} | {<br>&nbsp;&nbsp;"title":"title",<br>&nbsp;&nbsp;"writer":"writer",<br>&nbsp;&nbsp;"passwd":"passwd",<br>&nbsp;&nbsp;"content":"content"<br>}| {<br>&nbsp;&nbsp;"id":1,<br>&nbsp;&nbsp;"title":"modifedtitle",<br>&nbsp;&nbsp;"writer":"modifedwriter",<br>&nbsp;&nbsp;"content":"modifedcontent",<br>&nbsp;&nbsp;"createdAt": "2022-07-25T12:43:01.226062”,<br>&nbsp;&nbsp;"modifiedAt": "2022-07-25T12:43:01.226062”,<br>} |게시글 수정|
-| DELETE | /api/board/{id} | {<br>&nbsp;&nbsp;"id" : 1,<br>&nbsp;&nbsp;"passwd":"passwd"<br>}| {<br>&nbsp;&nbsp;"msg":<br> &nbsp;&nbsp;"2xx" - 성공<br>&nbsp;&nbsp;"4x4" - 유효하지 않은 id<br>&nbsp;&nbsp;"4x3" - 비밀번호 불일치<br>} |게시글 삭제|
+| DELETE | /api/board/{id} | {<br>&nbsp;&nbsp;"passwd":"passwd"<br>}| {<br>&nbsp;&nbsp;"msg":<br> &nbsp;&nbsp;"2xx" - 성공<br>&nbsp;&nbsp;"4x4" - 유효하지 않은 id<br>&nbsp;&nbsp;"4x3" - 비밀번호 불일치<br>} |게시글 삭제|
+
+
+## ❓ 생각해보기
+1. 수정, 삭제 API의 request를 어떤 방식으로 사용하셨나요? (param, query, body)
+    - 데이터 수정 / 삭제를 위한 개인고유정보인 패스워드가 요구되기에 body에 담아 전송함으로 웹 상에 URL에 노출되지 않도록 하였다.
+2. 어떤 상황에 어떤 방식의 request를 써야하나요?
+    - 게시글 등록 - POST
+    - 게시글 조회 - GET
+    - 게시글 수정 - PUT
+    - 게시글 삭제 - DELETE
+3. RESTful한 API를 설계했나요? 어떤 부분이 그런가요? 어떤 부분이 그렇지 않나요?
+    - URI를 통하여 board라는 자원과 {id} 통하여 자원의 고유번호를 식별가능하며, 단순 데이터를 응답하는 방식으로 설계하여 클라이언트와 서버 간 느슨하게 연결되어 있다.
+4. 적절한 관심사 분리를 적용하였나요? (Controller, Repository, Service)
+    -Controller에서는 단순 클라이언트로부터 요청을 분리하였으며, Service 계층에서는 해당 컨트롤러로부터 요청을 받아 처리해야할 작업들을 수행하였고, repository는 단순 DB와의 접근에만 집중하게 분리하였다.
+5. API 명세서 작성 가이드라인을 검색하여 직접 작성한 API 명세서와 비교해보세요!
+    - 작성 가이드와 비교해보았으며, swagger / spring rest docs 등을 주로 API 명세서를 만들기 위해 사용하고 있는 것 같다. 공통적인 사항들로 기능, 요청정보, 응답정보, 요청방식, 요청 URL 등을 기재한다.
