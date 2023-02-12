@@ -74,7 +74,8 @@ public class BoardService {
         if (!board.getPasswd().equals(requestDto.getPasswd())){
             throw new IllegalArgumentException("패스워드가 일치하지 않습니다.");
         }
-        board.updateBoard(requestDto);
+        Board newBoard = new Board();
+        board.updateBoard(requestDto); //자동감지로 업데이트
         return board;
     }
 

@@ -5,6 +5,7 @@ import com.sparta.springbasic.dto.BoardResponseDto;
 import com.sparta.springbasic.entity.Board;
 import com.sparta.springbasic.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -67,10 +68,10 @@ public class BoardController {
             res.setStatus(HttpServletResponse.SC_OK);
             result.put("msg","삭제 완료");
         }catch (IllegalArgumentException e){
-            res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+//            res.setStatus(HttpServletResponse.SC_NOT_FOUND);
             result.put("msg","유효하지 않은 번호입니다.");
         }catch (IllegalAccessException e){
-            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+//            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             result.put("msg","패스워드가 일치하지 않습니다.");
         }
         return result;
