@@ -1,6 +1,7 @@
 package com.sparta.springbasic.controller;
 
 
+import com.sparta.springbasic.dto.LoginRequestDto;
 import com.sparta.springbasic.dto.SignupRequestDto;
 import com.sparta.springbasic.dto.StatusResponseDto;
 import com.sparta.springbasic.service.UserService;
@@ -10,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @Controller
@@ -50,5 +52,12 @@ public class UserController {
         return userService.signup(signupRequestDto);
     }
 
-
+    @ResponseBody
+    @PostMapping("/login")
+    public StatusResponseDto login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse res) {
+        /**
+         * 회원가입 정보 유효성 확인
+         */
+        return userService.login(loginRequestDto,res);
+    }
 }

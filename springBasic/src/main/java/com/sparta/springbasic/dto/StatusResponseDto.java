@@ -4,6 +4,7 @@ import com.sparta.springbasic.entity.User;
 import lombok.Getter;
 
 @Getter
+
 public class StatusResponseDto {
 
     private String statusCode;

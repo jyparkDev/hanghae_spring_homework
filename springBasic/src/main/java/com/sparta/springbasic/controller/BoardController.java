@@ -2,6 +2,7 @@ package com.sparta.springbasic.controller;
 
 import com.sparta.springbasic.dto.BoardRequestDto;
 import com.sparta.springbasic.dto.BoardResponseDto;
+import com.sparta.springbasic.dto.StatusResponseDto;
 import com.sparta.springbasic.entity.Board;
 import com.sparta.springbasic.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,6 @@ public class BoardController {
 
     /**
      * 전체 게시글 조회  Controller
-     * @return 전체 게시글
      */
     @GetMapping("/api/boards")
     public List<BoardResponseDto> getBoards() {
@@ -29,8 +29,6 @@ public class BoardController {
     }
     /**
      * 게시글 등록 Controller
-     * @param requestDto
-     * @return 등록 된 게시글
      */
     @PostMapping("/api/boards")
     public BoardResponseDto ctreateBoard(@RequestBody BoardRequestDto requestDto){
@@ -39,8 +37,6 @@ public class BoardController {
 
     /**
      * 선택 게시글 조회 Controller
-     * @param id
-     * @return
      */
     @GetMapping("/api/board/{id}")
     public BoardResponseDto getBoard(@PathVariable Long id){
@@ -49,9 +45,6 @@ public class BoardController {
 
     /**
      * 선택 기능 수정 Controller
-     * @param id
-     * @param requestDto
-     * @return
      */
     @PutMapping("/api/board/{id}")
     public BoardResponseDto updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto){
@@ -59,22 +52,12 @@ public class BoardController {
         return new BoardResponseDto(board);
     }
 
+    /**
+     * 선택 게시글 삭제 Controller
+     */
     @DeleteMapping("/api/board/{id}")
-    public Map<String,String> deleteBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto, HttpServletResponse res){
-        System.out.println(id);
-        Map<String,String> result = new HashMap<>();
-        try{
-            boardService.removeBoard(id,requestDto.getPasswd());
-            res.setStatus(HttpServletResponse.SC_OK);
-            result.put("msg","삭제 완료");
-        }catch (IllegalArgumentException e){
-//            res.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            result.put("msg","유효하지 않은 번호입니다.");
-        }catch (IllegalAccessException e){
-//            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            result.put("msg","패스워드가 일치하지 않습니다.");
-        }
-        return result;
+    public StatusResponseDto deleteBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto, HttpServletResponse res){
+        return boardService.removeBoard(id,requestDto.getPasswd(),res);
     }
 }
 

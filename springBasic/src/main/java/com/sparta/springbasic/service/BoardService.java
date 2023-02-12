@@ -2,12 +2,14 @@ package com.sparta.springbasic.service;
 
 import com.sparta.springbasic.dto.BoardRequestDto;
 import com.sparta.springbasic.dto.BoardResponseDto;
+import com.sparta.springbasic.dto.StatusResponseDto;
 import com.sparta.springbasic.entity.Board;
 import com.sparta.springbasic.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +21,6 @@ public class BoardService {
 
     /**
      * 게시글 등록 기능
-     * @param requestDto
-     * @return 등록된 게시물
      */
 
     public BoardResponseDto createBoard(BoardRequestDto requestDto) {
@@ -36,8 +36,6 @@ public class BoardService {
 
     /**
      * 전체 게시글 조회 기능
-     * @param requestDto
-     * @return 전체 게시글
      */
     @Transactional(readOnly = true)
     public List<BoardResponseDto> findBoards() {
@@ -51,8 +49,6 @@ public class BoardService {
 
     /**
      * 선택 게시글 조회 기능
-     * @param id
-     * @return
      */
     @Transactional(readOnly = true)
     public Board findBoard(Long id) {
@@ -63,9 +59,6 @@ public class BoardService {
 
     /**
      * 선택 게시글 수정 기능
-     * @param id
-     * @param requestDto
-     * @return
      */
     public Board updateBoard(Long id,BoardRequestDto requestDto){
         Board board = boardRepository.findById(id).orElseThrow(
@@ -79,14 +72,27 @@ public class BoardService {
         return board;
     }
 
-    public void removeBoard(Long id,String passwd) throws IllegalArgumentException, IllegalAccessException {
-        Board board = boardRepository.findById(id).orElseThrow(
-                ()->new IllegalArgumentException("해당 게시물이 없습니다.")
-        );
-        if(!board.getPasswd().equals(passwd)){
-            throw new IllegalAccessException("비밀번호가 일치하지 않습니다");
+    /**
+     * 선택 게시글 삭제
+     */
+    public StatusResponseDto removeBoard(Long id, String passwd, HttpServletResponse res)  {
+        try{
+            Board board = boardRepository.findById(id).orElseThrow(
+                    () -> new IllegalArgumentException("해당 게시물이 없습니다.")
+            );
+            if(!board.getPasswd().equals(passwd)){
+                throw new IllegalAccessException("비밀번호가 일치하지 않습니다");
+            }
+            res.setStatus(HttpServletResponse.SC_OK);
+            boardRepository.delete(board);
+            return new StatusResponseDto("200","삭제 성고!");
+        }catch (IllegalAccessException e){
+            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return new StatusResponseDto("400",e.getMessage());
+        }catch (IllegalArgumentException e){
+            res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return new StatusResponseDto("404",e.getMessage());
         }
-        boardRepository.delete(board);
     }
 }
 
