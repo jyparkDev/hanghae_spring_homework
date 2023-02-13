@@ -19,9 +19,10 @@
 ## ✏ Usecase Diagram
 ![게시글_유스케이스](https://user-images.githubusercontent.com/72076023/216767627-3d466878-4fb9-47a9-b148-771579d1a344.png)
 
+## 📜 ERD
+![게시판 만들기](https://user-images.githubusercontent.com/72076023/218360779-0c0e5ba4-5abd-4a46-aa46-3df9ad3164cd.png)
 
 ## 📜 API Docs
-
 | Method | URL | Request | Response | 기능 |
 | :-------: | :---: | :---| :--- | :----: |
 | GET | /api/boards | | {<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;"id":1,<br>&nbsp;&nbsp;&nbsp;&nbsp;"title":"title",<br>&nbsp;&nbsp;&nbsp;&nbsp;"writer":"writer",<br>&nbsp;&nbsp;&nbsp;&nbsp;"content":"content",<br>&nbsp;&nbsp;&nbsp;&nbsp;"createdAt": "2022-07-25T12:43:01.226062”,<br>&nbsp;&nbsp;&nbsp;&nbsp;"modifiedAt": "2022-07-25T12:43:01.226062”,<br>&nbsp;&nbsp;}&nbsp;,<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;"id":2,<br>&nbsp;&nbsp;&nbsp;&nbsp;"title":"title",<br>&nbsp;&nbsp;&nbsp;&nbsp;"writer":"writer",<br>&nbsp;&nbsp;&nbsp;&nbsp;"content":"content",<br>&nbsp;&nbsp;&nbsp;&nbsp;"createdAt": "2022-07-25T12:43:01.226062”,<br>&nbsp;&nbsp;&nbsp;&nbsp;"modifiedAt": "2022-07-25T12:43:01.226062”,<br>&nbsp;&nbsp;}&nbsp;, ....<br>} | 전체 게시글 조회 
@@ -45,3 +46,5 @@
     -Controller에서는 단순 클라이언트로부터 요청을 분리하였으며, Service 계층에서는 해당 컨트롤러로부터 요청을 받아 처리해야할 작업들을 수행하였고, repository는 단순 DB와의 접근에만 집중하게 분리하였다.
 5. API 명세서 작성 가이드라인을 검색하여 직접 작성한 API 명세서와 비교해보세요!
     - 작성 가이드와 비교해보았으며, swagger / spring rest docs 등을 주로 API 명세서를 만들기 위해 사용하고 있는 것 같다. 공통적인 사항들로 기능, 요청정보, 응답정보, 요청방식, 요청 URL 등을 기재한다.
+    
+    
