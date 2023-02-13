@@ -71,18 +71,17 @@ public class BoardService {
                 .collect(Collectors.toList()));
     }
 
-//    /**
-//     * 선택 게시글 조회 기능
-//     */
-//    @Transactional(readOnly = true)
-//    public ResponseEntity findBoard(Long id) {
-//        Optional<Board> findBoard = boardRepository.findById(id);
-//        if(findBoard.isEmpty()){
-//            return ResponseEntity.badRequest().
-//        }
-//
-//        return ResponseEntity.ok(new BoardResponseDto(findBoard));
-//    }
+    /**
+     * 선택 게시글 조회 기능
+     */
+    @Transactional(readOnly = true)
+    public ResponseEntity<BoardResponseDto> findBoard(Long id) {
+        Optional<Board> findBoard = boardRepository.findById(id); // 해당 번호 게시글 찾기
+        if(findBoard.isEmpty()){ // 찾은 결과가 있는지 확인
+            return exceptionResponse("해당 게시글이 없습니다.");
+        }
+        return ResponseEntity.ok(new BoardResponseDto(findBoard.get())); // 해당 게시글 반환
+    }
 
     /**
      * 선택 게시글 수정 기능

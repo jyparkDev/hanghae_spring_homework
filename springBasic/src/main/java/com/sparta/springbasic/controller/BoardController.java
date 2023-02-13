@@ -41,14 +41,14 @@ public class BoardController {
 
 /**
  * 선택 게시글 조회 Controller
- *//*
+ */
 
     @GetMapping("/api/board/{id}")
-    public ResponseEntity getBoard(@PathVariable Long id){
+    public ResponseEntity<BoardResponseDto> getBoard(@PathVariable Long id){
         return boardService.findBoard(id);
     }
 
-    */
+
 /**
  * 선택 기능 수정 Controller
  *//*
