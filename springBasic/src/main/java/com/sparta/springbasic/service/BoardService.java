@@ -86,17 +86,31 @@ public class BoardService {
     /**
      * 선택 게시글 수정 기능
      */
-//    public Board updateBoard(Long id,BoardRequestDto requestDto){
-//        Board board = boardRepository.findById(id).orElseThrow(
-//                () -> new IllegalArgumentException("해당 게시글이 없습니다.")
-//        );
-//        if (!board.getPasswd().equals(requestDto.getPasswd())){
-//            throw new IllegalArgumentException("패스워드가 일치하지 않습니다.");
-//        }
-//        Board newBoard = new Board();
-//        board.updateBoard(requestDto); //자동감지로 업데이트
-//        return board;
-//    }
+    public ResponseEntity<Object> updateBoard(Long id,BoardRequestDto requestDto,HttpServletRequest req){
+        String token = jwtUtil.resolveToken(req);
+        Claims claims;
+
+        if(token != null){
+            if(jwtUtil.validateToken(token)){
+                claims = jwtUtil.getUserInfoFromToken(token);
+            }else{
+                return exceptionResponse("토큰이 유효하지 않습니다.");
+            }
+            Optional<User> findUser = userRepository.findByUsername(claims.getSubject());
+            if(findUser.isEmpty()){
+                return exceptionResponse("유효하지 않은 계정입니다.");
+            }
+            Optional<Board> board = boardRepository.findByIdAndUserId(id,findUser.get().getId());
+            if (board.isEmpty()){
+                return exceptionResponse("해당 번호 게시글이 없습니다.");
+            }
+            board.get().updateBoard(requestDto); //자동감지로 업데이트
+            return ResponseEntity.ok(new BoardResponseDto(board.get()));
+        }else{
+            return exceptionResponse("토큰이 없습니다.");
+        }
+
+    }
 
     /**
      * 선택 게시글 삭제

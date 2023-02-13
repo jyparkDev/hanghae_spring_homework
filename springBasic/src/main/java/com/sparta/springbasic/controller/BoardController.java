@@ -5,6 +5,7 @@ import com.sparta.springbasic.dto.BoardRequestDto;
 import com.sparta.springbasic.dto.BoardResponseDto;
 
 
+import com.sparta.springbasic.entity.Board;
 import com.sparta.springbasic.service.BoardService;
 import lombok.RequiredArgsConstructor;
 
@@ -51,17 +52,12 @@ public class BoardController {
 
 /**
  * 선택 기능 수정 Controller
- *//*
-     */
-/*
+ */
     @PutMapping("/api/board/{id}")
-    public BoardResponseDto updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto){
-        Board board = boardService.updateBoard(id, requestDto);
-        return new BoardResponseDto(board);
+    public ResponseEntity<Object> updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto, HttpServletRequest req){
+        return boardService.updateBoard(id, requestDto,req);
     }
 
-    *//*
-     */
 /**
  * 선택 게시글 삭제 Controller
  *//*
