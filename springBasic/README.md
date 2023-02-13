@@ -17,10 +17,10 @@
 - 선택한 게시글을 삭제하고 Client 로 성공했다는 표시 반환하기
 
 ## ✏ Usecase Diagram
-![게시글_유스케이스](https://user-images.githubusercontent.com/72076023/216767627-3d466878-4fb9-47a9-b148-771579d1a344.png)
+![게시글_유스케이스](https://github.com/jyparkDev/hanghae_spring_homework/blob/main/springBasic/docs/usecase.png)
 
 ## 📜 ERD
-![게시판 만들기](https://user-images.githubusercontent.com/72076023/218360779-0c0e5ba4-5abd-4a46-aa46-3df9ad3164cd.png)
+![게시판 ERD](https://github.com/jyparkDev/hanghae_spring_homework/blob/main/springBasic/docs/erd.png)
 
 ## 📜 API Docs
 | Method | URL | Request | Response | 기능 |
