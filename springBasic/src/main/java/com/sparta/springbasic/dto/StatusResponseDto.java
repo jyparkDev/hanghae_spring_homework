@@ -7,11 +7,11 @@ import lombok.Getter;
 
 public class StatusResponseDto {
 
-    private String statusCode;
+    private int statusCode;
     private String statusMsg;
 
 
-    public StatusResponseDto(String statusCode, String statusMsg) {
+    public StatusResponseDto(int statusCode, String statusMsg) {
         this.statusCode = statusCode;
         this.statusMsg = statusMsg;
     }

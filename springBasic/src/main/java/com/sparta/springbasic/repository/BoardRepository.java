@@ -11,5 +11,6 @@ public interface BoardRepository extends JpaRepository<Board,Long> {
      * @return
      */
     List<Board> findAllByOrderByCreatedAtDesc();
+    List<Board> findAllByUserIdOrderByModifiedAtDesc(Long userId);
 
 }

@@ -8,6 +8,9 @@ import com.sparta.springbasic.entity.UserRoleEnum;
 import com.sparta.springbasic.jwt.JwtUtil;
 import com.sparta.springbasic.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,52 +22,52 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-
     private final JwtUtil jwtUtil;
     /**
      * 회원가입 기능
-     * @param signupRequestDto
-     * @return
      */
     @Transactional
-    public StatusResponseDto signup(SignupRequestDto signupRequestDto) {
-        String name = signupRequestDto.getUsername(); // 가입할 회원명
-        String passwd = signupRequestDto.getPassword(); // 가입할 패스워드
-
+    public ResponseEntity<StatusResponseDto> signup(SignupRequestDto signupRequestDto) {
         //동일한 회원명 있는지 확인
-        Optional<User> findUser = userRepository.findByUsername(name);
+        Optional<User> findUser = userRepository.findByUsername(signupRequestDto.getUsername());
         if(findUser.isPresent()){
-            try {
-                throw new IllegalStateException("이미 존재하는 계정입니다.");
-            }catch (IllegalStateException e){
-                return new StatusResponseDto("4xx", e.getMessage());
-            }
+            return exceptionResponse("이미 존재하는 계정입니다.");
         }
         // 회원 등록
         User user = User.builder()
-                .username(name)
-                .password(passwd)
+                .requestDto(signupRequestDto)
                 .build();
         userRepository.save(user);
-        return new StatusResponseDto("200","회원가입 성공!");
+        return ResponseEntity.ok(new StatusResponseDto(HttpStatus.OK.value(),"회원가입 성공!"));
     }
 
-    public StatusResponseDto login(LoginRequestDto loginRequestDto, HttpServletResponse res) {
+
+    /**
+     * 로그인 기능
+     */
+    public ResponseEntity<StatusResponseDto> login(LoginRequestDto loginRequestDto) {
         String name = loginRequestDto.getUsername();
         String passwd = loginRequestDto.getPassword();
 
         Optional<User> user = userRepository.findByUsername(name);
-        try {
-            if(user.isEmpty()){
-                throw new IllegalStateException("없는 계정입니다.");
-            }else if (!user.get().getPassword().equals(passwd)){
-                throw new IllegalStateException("패스워드가 일치하지 않습니다.");
-            }
-        }catch (IllegalStateException e){
-            return new StatusResponseDto("400",e.getMessage());
+        if(user.isEmpty()){
+            return exceptionResponse("유효하지 않은 계정입니다.");
+        }else if(!(user.get().getPassword().equals(passwd))){
+            return exceptionResponse("패스워드가 일치하지 않습니다.");
         }
 
-        res.addHeader(JwtUtil.AUTHORIZATION_HEADER,jwtUtil.createToken(user.get().getUsername(), UserRoleEnum.USER));
-        return new StatusResponseDto("200","로그인 성공");
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(JwtUtil.AUTHORIZATION_HEADER,jwtUtil.createToken(user.get().getUsername(),user.get().getRole()));
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(new StatusResponseDto(HttpStatus.OK.value(),"로그인 성공!!"));
+    }
+
+    /**
+     * 공통 예외처리 기능
+     */
+    private ResponseEntity<StatusResponseDto> exceptionResponse(String msg) {
+        return ResponseEntity.badRequest()
+                .body(new StatusResponseDto(HttpStatus.BAD_REQUEST.value(), msg));
     }
 }

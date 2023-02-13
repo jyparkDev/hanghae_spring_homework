@@ -6,6 +6,8 @@ import com.sparta.springbasic.dto.SignupRequestDto;
 import com.sparta.springbasic.dto.StatusResponseDto;
 import com.sparta.springbasic.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -24,40 +26,39 @@ public class UserController {
     /**
      * 회원가입 페이지
      */
-    @GetMapping("/signup")
+   /* @GetMapping("/signup")
     public ModelAndView signupPage() {
         return new ModelAndView("signup");
-    }
+    }*/
 
     /**
      * 로그인 페이지
      */
-    @GetMapping("/login")
+   /* @GetMapping("/login")
     public ModelAndView loginPage() {
         return new ModelAndView("login");
-    }
+    }*/
 
     /**
      * 회원가입
      */
     @ResponseBody
     @PostMapping("/signup")
-    public StatusResponseDto signup(@Valid @RequestBody SignupRequestDto signupRequestDto, BindingResult result) {
-        /**
-         * 회원가입 정보 유효성 확인
-         */
+    public ResponseEntity<StatusResponseDto> signup(@Valid @RequestBody SignupRequestDto signupRequestDto, BindingResult result) {
+
+        //회원가입 정보 유효성 확인
         if(result.hasErrors()){
-            return new StatusResponseDto("4xx",result.getFieldError().getDefaultMessage());
+            return ResponseEntity.badRequest().body(new StatusResponseDto(HttpStatus.BAD_REQUEST.value(),result.getFieldError().getDefaultMessage()));
         }
         return userService.signup(signupRequestDto);
     }
 
     @ResponseBody
     @PostMapping("/login")
-    public StatusResponseDto login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse res) {
+    public ResponseEntity<StatusResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
         /**
          * 회원가입 정보 유효성 확인
          */
-        return userService.login(loginRequestDto,res);
+        return userService.login(loginRequestDto);
     }
 }

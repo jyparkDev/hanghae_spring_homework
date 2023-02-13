@@ -11,9 +11,7 @@ import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
-@Builder
 public class Board extends Timestamped{
 
     @Id
@@ -23,20 +21,26 @@ public class Board extends Timestamped{
     @Column(nullable = false)
     private String title; // 글 제목
 
-    @Column(nullable = false)
-    private String writer; // 작성자
-
-    @Column(nullable = false)
-    private String passwd;  // 패스워드
 
     @Column(nullable = false)
     private String content; // 글 내용
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
+
+
+    @Builder
+    public Board(BoardRequestDto requestDto,User user) {
+        this.title = requestDto.getTitle();
+        this.content = requestDto.getContent();
+        this.user = user;
+    }
 
     public void updateBoard(BoardRequestDto requestDto){
         this.title = requestDto.getTitle();
-        this.writer = requestDto.getWriter();
+//        this.username = requestDto.getUsername();
         this.content = requestDto.getContent();
     }
 
