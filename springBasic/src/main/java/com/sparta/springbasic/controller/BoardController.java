@@ -21,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class BoardController {
     private final BoardService boardService;
 
@@ -29,7 +30,7 @@ public class BoardController {
  * 전체 게시글 조회  Controller
  */
 
-    @GetMapping("/api/boards")
+    @GetMapping("/boards")
     public ResponseEntity<List<BoardResponseDto>> getBoards() {
         return boardService.findBoards();
     }
@@ -37,7 +38,7 @@ public class BoardController {
     /**
      * 게시글 등록 Controller
      */
-    @PostMapping("/api/boards")
+    @PostMapping("/boards")
     public ResponseEntity ctreateBoard(@RequestBody BoardRequestDto requestDto, HttpServletRequest req) {
         return boardService.createBoard(requestDto, req);
     }
@@ -46,7 +47,7 @@ public class BoardController {
  * 선택 게시글 조회 Controller
  */
 
-    @GetMapping("/api/board/{id}")
+    @GetMapping("/board/{id}")
     public ResponseEntity<BoardResponseDto> getBoard(@PathVariable Long id){
         return boardService.findBoard(id);
     }
@@ -54,7 +55,7 @@ public class BoardController {
 /**
  * 선택 기능 수정 Controller
  */
-    @PutMapping("/api/board/{id}")
+    @PutMapping("/board/{id}")
     public ResponseEntity<Object> updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto, HttpServletRequest req){
         return boardService.updateBoard(id, requestDto,req);
     }
@@ -63,7 +64,7 @@ public class BoardController {
  * 선택 게시글 삭제 Controller
  */
 
-    @DeleteMapping("/api/board/{id}")
+    @DeleteMapping("/board/{id}")
     public ResponseEntity<StatusResponseDto> deleteBoard(@PathVariable Long id, HttpServletRequest req){
         return boardService.removeBoard(id,req);
     }
