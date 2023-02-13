@@ -45,6 +45,7 @@ public class UserService {
     /**
      * 로그인 기능
      */
+    @Transactional(readOnly = true)
     public ResponseEntity<StatusResponseDto> login(LoginRequestDto loginRequestDto) {
         String name = loginRequestDto.getUsername();
         String passwd = loginRequestDto.getPassword();

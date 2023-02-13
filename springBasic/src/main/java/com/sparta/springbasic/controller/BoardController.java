@@ -50,7 +50,7 @@ public class BoardController {
     public ResponseEntity<BoardResponseDto> getBoard(@PathVariable Long id){
         return boardService.findBoard(id);
     }
-    
+
 /**
  * 선택 기능 수정 Controller
  */
