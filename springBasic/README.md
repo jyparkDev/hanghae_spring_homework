@@ -41,13 +41,7 @@
 ![게시판 ERD](https://github.com/jyparkDev/hanghae_spring_homework/blob/main/springBasic/docs/erd.png)
 
 ## 📜 API Docs
-| Method | URL | Request | Response | 기능 |
-| :-------: | :---: | :---| :--- | :----: |
-| GET | /api/boards | | {<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;"id":1,<br>&nbsp;&nbsp;&nbsp;&nbsp;"title":"title",<br>&nbsp;&nbsp;&nbsp;&nbsp;"writer":"writer",<br>&nbsp;&nbsp;&nbsp;&nbsp;"content":"content",<br>&nbsp;&nbsp;&nbsp;&nbsp;"createdAt": "2022-07-25T12:43:01.226062”,<br>&nbsp;&nbsp;&nbsp;&nbsp;"modifiedAt": "2022-07-25T12:43:01.226062”,<br>&nbsp;&nbsp;}&nbsp;,<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;"id":2,<br>&nbsp;&nbsp;&nbsp;&nbsp;"title":"title",<br>&nbsp;&nbsp;&nbsp;&nbsp;"writer":"writer",<br>&nbsp;&nbsp;&nbsp;&nbsp;"content":"content",<br>&nbsp;&nbsp;&nbsp;&nbsp;"createdAt": "2022-07-25T12:43:01.226062”,<br>&nbsp;&nbsp;&nbsp;&nbsp;"modifiedAt": "2022-07-25T12:43:01.226062”,<br>&nbsp;&nbsp;}&nbsp;, ....<br>} | 전체 게시글 조회 
-| GET | /api/board/{id} | {&nbsp;"id" : 1&nbsp; } | {<br>&nbsp;&nbsp;"id":1,<br>&nbsp;&nbsp;"title":"title",<br>&nbsp;&nbsp;"writer":"writer",<br>&nbsp;&nbsp;"content":"content",<br>&nbsp;&nbsp;"createdAt": "2022-07-25T12:43:01.226062”,<br>&nbsp;&nbsp;"modifiedAt": "2022-07-25T12:43:01.226062”,<br>}|선택 게시글 조회|
-| POST | /api/boards | {<br>&nbsp;&nbsp;"title":"title",<br>&nbsp;&nbsp;"writer":"writer",<br>&nbsp;&nbsp;"passwd":"passwd",<br>&nbsp;&nbsp;"content":"content"<br>}| {<br>&nbsp;&nbsp;"id":1,<br>&nbsp;&nbsp;"title":"title",<br>&nbsp;&nbsp;"writer":"writer",<br>&nbsp;&nbsp;"content":"content",<br>&nbsp;&nbsp;"createdAt": "2022-07-25T12:43:01.226062”,<br>&nbsp;&nbsp;"modifiedAt": "2022-07-25T12:43:01.226062”,<br>} |게시글 등록|
-| PUT | /api/board/{id} | {<br>&nbsp;&nbsp;"title":"title",<br>&nbsp;&nbsp;"writer":"writer",<br>&nbsp;&nbsp;"passwd":"passwd",<br>&nbsp;&nbsp;"content":"content"<br>}| {<br>&nbsp;&nbsp;"id":1,<br>&nbsp;&nbsp;"title":"modifedtitle",<br>&nbsp;&nbsp;"writer":"modifedwriter",<br>&nbsp;&nbsp;"content":"modifedcontent",<br>&nbsp;&nbsp;"createdAt": "2022-07-25T12:43:01.226062”,<br>&nbsp;&nbsp;"modifiedAt": "2022-07-25T12:43:01.226062”,<br>} |게시글 수정|
-| DELETE | /api/board/{id} | {<br>&nbsp;&nbsp;"passwd":"passwd"<br>}| {<br>&nbsp;&nbsp;"msg":<br> &nbsp;&nbsp;"2xx" - 성공<br>&nbsp;&nbsp;"4x4" - 유효하지 않은 id<br>&nbsp;&nbsp;"4x3" - 비밀번호 불일치<br>} |게시글 삭제|
+<a href="https://github.com/jyparkDev/hanghae_spring_homework/blob/main/springBasic/docs/api_docs.md">[API문서보기]</a>
 
 
 ## ❓ 생각해보기
