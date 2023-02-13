@@ -10,7 +10,7 @@ public interface BoardRepository extends JpaRepository<Board,Long> {
      * 게시글 등록일 내림차순 정렬
      * @return
      */
-    List<Board> findAllByOrderByCreatedAtDesc();
+    List<Board> findAllByOrderByModifiedAtDesc();
     List<Board> findAllByUserIdOrderByModifiedAtDesc(Long userId);
 
 }

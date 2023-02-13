@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import javax.servlet.http.HttpServletRequest;
-
+import java.util.List;
 
 
 @RestController
@@ -24,19 +24,16 @@ public class BoardController {
 
 /**
  * 전체 게시글 조회  Controller
- *//*
+ */
 
     @GetMapping("/api/boards")
     public ResponseEntity<List<BoardResponseDto>> getBoards() {
         return boardService.findBoards();
     }
-    */
 
     /**
      * 게시글 등록 Controller
      */
-
-
     @PostMapping("/api/boards")
     public ResponseEntity ctreateBoard(@RequestBody BoardRequestDto requestDto, HttpServletRequest req) {
         return boardService.createBoard(requestDto, req);

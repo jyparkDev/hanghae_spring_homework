@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -59,20 +60,16 @@ public class BoardService {
         }
     }
 
-
-//
-//    /**
-//     * 전체 게시글 조회 기능
-//     */
-//    @Transactional(readOnly = true)
-//    public ResponseEntity<List<BoardResponseDto>> findBoards() {
-//        List<Board> boardList = boardRepository.findAllByOrderByCreatedAtDesc();
-//        List<BoardResponseDto> responseDtos = new ArrayList<>();
-//        for(Board board : boardList){
-//            responseDtos.add(new BoardResponseDto(board));
-//        }
-//        return ResponseEntity.ok(responseDtos);
-//    }
+    /**
+     * 전체 게시글 조회 기능
+     */
+    @Transactional(readOnly = true)
+    public ResponseEntity<List<BoardResponseDto>> findBoards() {
+        return ResponseEntity.ok(boardRepository.findAllByOrderByModifiedAtDesc()
+                .stream()
+                .map(BoardResponseDto::new)
+                .collect(Collectors.toList()));
+    }
 
 //    /**
 //     * 선택 게시글 조회 기능
