@@ -114,26 +114,31 @@ public class BoardService {
 
     /**
      * 선택 게시글 삭제
-     *//*
-    public StatusResponseDto removeBoard(Long id, String passwd, HttpServletResponse res)  {
-        try{
-            Board board = boardRepository.findById(id).orElseThrow(
-                    () -> new IllegalArgumentException("해당 게시물이 없습니다.")
-            );
-            if(!board.getPasswd().equals(passwd)){
-                throw new IllegalAccessException("비밀번호가 일치하지 않습니다");
+     */
+    public ResponseEntity<StatusResponseDto> removeBoard(Long id, HttpServletRequest req)  {
+        String token = jwtUtil.resolveToken(req);
+        Claims claims;
+
+        if(token != null){
+            if(jwtUtil.validateToken(token)){
+                claims = jwtUtil.getUserInfoFromToken(token);
+            }else{
+                return exceptionResponse("토큰이 유효하지 않습니다.");
             }
-            res.setStatus(HttpServletResponse.SC_OK);
-            boardRepository.delete(board);
-            return new StatusResponseDto("200","삭제 성고!");
-        }catch (IllegalAccessException e){
-            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return new StatusResponseDto("400",e.getMessage());
-        }catch (IllegalArgumentException e){
-            res.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            return new StatusResponseDto("404",e.getMessage());
+            Optional<User> findUser = userRepository.findByUsername(claims.getSubject());
+            if(findUser.isEmpty()){
+                return exceptionResponse("해당 유저가 없습니다.");
+            }
+            Optional<Board> findBoard = boardRepository.findByIdAndUserId(id, findUser.get().getId());
+            if (findBoard.isEmpty()){
+                return exceptionResponse("유효하지 않은 게시물입니다.");
+            }
+            boardRepository.delete(findBoard.get());
+            return ResponseEntity.ok(new StatusResponseDto(HttpStatus.OK.value(), "삭제 완료"));
+        }else {
+            return exceptionResponse("토큰이 없습니다.");
         }
-    }*/
+    }
 
     private ResponseEntity exceptionResponse(String msg) {
         return ResponseEntity.badRequest()

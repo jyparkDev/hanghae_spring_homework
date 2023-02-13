@@ -5,6 +5,7 @@ import com.sparta.springbasic.dto.BoardRequestDto;
 import com.sparta.springbasic.dto.BoardResponseDto;
 
 
+import com.sparta.springbasic.dto.StatusResponseDto;
 import com.sparta.springbasic.entity.Board;
 import com.sparta.springbasic.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 
@@ -48,8 +50,7 @@ public class BoardController {
     public ResponseEntity<BoardResponseDto> getBoard(@PathVariable Long id){
         return boardService.findBoard(id);
     }
-
-
+    
 /**
  * 선택 기능 수정 Controller
  */
@@ -60,16 +61,12 @@ public class BoardController {
 
 /**
  * 선택 게시글 삭제 Controller
- *//*
-     */
-/*
+ */
+
     @DeleteMapping("/api/board/{id}")
-    public StatusResponseDto deleteBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto, HttpServletResponse res){
-        return boardService.removeBoard(id,requestDto.getPasswd(),res);
-    }*//*
+    public ResponseEntity<StatusResponseDto> deleteBoard(@PathVariable Long id, HttpServletRequest req){
+        return boardService.removeBoard(id,req);
+    }
 
 }
 
-
-*/
-}
