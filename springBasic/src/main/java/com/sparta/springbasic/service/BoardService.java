@@ -5,23 +5,18 @@ import com.sparta.springbasic.dto.BoardResponseDto;
 import com.sparta.springbasic.dto.StatusResponseDto;
 import com.sparta.springbasic.entity.Board;
 import com.sparta.springbasic.entity.User;
-import com.sparta.springbasic.entity.UserRoleEnum;
 import com.sparta.springbasic.jwt.JwtUtil;
 import com.sparta.springbasic.repository.BoardRepository;
 import com.sparta.springbasic.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 

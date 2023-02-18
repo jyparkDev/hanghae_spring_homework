@@ -10,14 +10,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
 public class UserController {
@@ -25,25 +22,8 @@ public class UserController {
     private final UserService userService;
 
     /**
-     * 회원가입 페이지
+     * 회원가입 Controller
      */
-   /* @GetMapping("/signup")
-    public ModelAndView signupPage() {
-        return new ModelAndView("signup");
-    }*/
-
-    /**
-     * 로그인 페이지
-     */
-   /* @GetMapping("/login")
-    public ModelAndView loginPage() {
-        return new ModelAndView("login");
-    }*/
-
-    /**
-     * 회원가입
-     */
-    @ResponseBody
     @PostMapping("/signup")
     public ResponseEntity<StatusResponseDto> signup(@Valid @RequestBody SignupRequestDto signupRequestDto, BindingResult result) {
         //회원가입 정보 유효성 확인
@@ -53,7 +33,9 @@ public class UserController {
         return userService.signup(signupRequestDto);
     }
 
-    @ResponseBody
+    /**
+     * 로그인 Controller
+     */
     @PostMapping("/login")
     public ResponseEntity<StatusResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
         /**
@@ -61,4 +43,5 @@ public class UserController {
          */
         return userService.login(loginRequestDto);
     }
+
 }
