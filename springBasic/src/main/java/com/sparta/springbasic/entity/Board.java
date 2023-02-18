@@ -1,12 +1,9 @@
 package com.sparta.springbasic.entity;
 
 import com.sparta.springbasic.dto.BoardRequestDto;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-
 import javax.persistence.*;
 
 @Entity
@@ -29,8 +26,6 @@ public class Board extends Timestamped{
     @JoinColumn(name = "user_id")
     private User user;
 
-
-
     @Builder
     public Board(BoardRequestDto requestDto,User user) {
         this.title = requestDto.getTitle();
@@ -40,7 +35,6 @@ public class Board extends Timestamped{
 
     public void updateBoard(BoardRequestDto requestDto){
         this.title = requestDto.getTitle();
-//        this.username = requestDto.getUsername();
         this.content = requestDto.getContent();
     }
 

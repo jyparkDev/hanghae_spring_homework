@@ -1,6 +1,5 @@
 package com.sparta.springbasic.dto;
 
-import com.sparta.springbasic.entity.User;
 import lombok.Getter;
 
 @Getter

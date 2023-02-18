@@ -54,7 +54,6 @@ public class CommentService {
                     .build();
             commentRepository.save(comment);
             return ResponseEntity.ok(new CommentResponseDto(comment,findUser.get(),findBoard.get()));
-
         }else {
             return exceptionResponse("토큰이 없습니다.");
         }

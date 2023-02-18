@@ -1,15 +1,12 @@
 package com.sparta.springbasic.entity;
 
 import com.sparta.springbasic.dto.SignupRequestDto;
-import lombok.*;
-import org.hibernate.query.criteria.internal.expression.function.AggregationFunction;
-import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Service;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
 
 @Getter
 @Entity(name="users")

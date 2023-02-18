@@ -3,19 +3,13 @@ package com.sparta.springbasic.controller;
 
 import com.sparta.springbasic.dto.BoardRequestDto;
 import com.sparta.springbasic.dto.BoardResponseDto;
-
-
 import com.sparta.springbasic.dto.StatusResponseDto;
-import com.sparta.springbasic.entity.Board;
 import com.sparta.springbasic.service.BoardService;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 
@@ -57,7 +51,7 @@ public class BoardController {
  */
     @PutMapping("/board/{id}")
     public ResponseEntity<Object> updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto, HttpServletRequest req){
-        return boardService.updateBoard(id, requestDto,req);
+        return boardService.updateBoard(id, requestDto, req);
     }
 
 /**

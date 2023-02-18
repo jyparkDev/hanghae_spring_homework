@@ -17,7 +17,7 @@ public class Comment extends Timestamped{
     @Column(nullable = false)
     private String content;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "board_id")
     private Board board;
 
