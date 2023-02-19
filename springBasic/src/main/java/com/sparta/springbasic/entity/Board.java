@@ -27,15 +27,16 @@ public class Board extends Timestamped{
     private User user;
 
     @Builder
-    public Board(BoardRequestDto requestDto,User user) {
-        this.title = requestDto.getTitle();
-        this.content = requestDto.getContent();
+    public Board(String title,String content,User user) {
+        this.title = title;
+        this.content = content;
         this.user = user;
     }
 
-    public void updateBoard(BoardRequestDto requestDto){
-        this.title = requestDto.getTitle();
-        this.content = requestDto.getContent();
+    public Board updateBoard(String title, String content){
+        this.title = title;
+        this.content = content;
+        return this;
     }
 
 

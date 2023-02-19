@@ -40,11 +40,12 @@ public class UserService {
             return exceptionResponse("이미 존재하는 계정입니다.");
         }
         UserRoleEnum role = UserRoleEnum.USER;
-
-        //사용자 ROLE 확인
+        // 관리자 계정 생성 코드 확인
         if(signupRequestDto.isAdmin()){
             try{
-                if(isAdminCodeCheck(signupRequestDto.getAdminToken(),role));
+                if(isAdminCodeCheck(signupRequestDto.getAdminToken())){
+                    role = UserRoleEnum.ADMIN;
+                }
             }catch (IOException | IllegalStateException e){
                 return exceptionResponse("관리자 코드 불일치");
             }
@@ -85,13 +86,11 @@ public class UserService {
     /**
      * 관리자 코드 확인
      */
-    private boolean isAdminCodeCheck(String adminCode,UserRoleEnum role) throws IOException,IllegalStateException {
+    private boolean isAdminCodeCheck(String adminCode) throws IOException,IllegalStateException {
         Properties prop = new Properties();
         prop.load(new FileInputStream("config.properties"));
-        if(prop.get("ADMIN_TOKEN").equals(adminCode)){
-            role  = UserRoleEnum.ADMIN;
+        if(prop.get("ADMIN_TOKEN").equals(adminCode))
             return true;
-        }
         throw new IllegalStateException();
     }
 
